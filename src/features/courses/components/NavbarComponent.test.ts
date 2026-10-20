@@ -24,12 +24,13 @@ describe("NavbarComponent", () => {
       username: "johndoe",
       photo: "https://example.com/photo.jpg",
     };
-    const { getByText, getByAltText } = render(NavbarComponent, {
+    const { getByText, container } = render(NavbarComponent, {
       props: { profile },
     });
     expect(getByText("John Doe")).toBeDefined();
     expect(getByText("john@example.com")).toBeDefined();
-    const img = getByAltText("John Doe") as HTMLImageElement;
+    const img = container.querySelector("img") as HTMLImageElement;
+    expect(img.alt).toBe("");
     expect(img.src).toBe("https://example.com/photo.jpg");
   });
 

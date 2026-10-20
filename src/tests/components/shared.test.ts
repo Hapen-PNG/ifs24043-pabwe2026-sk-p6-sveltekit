@@ -33,6 +33,13 @@ describe("Avatar", () => {
     );
   });
 
+  it("menyembunyikan avatar dari pembaca layar bila nama sudah ditampilkan terpisah", () => {
+    const { container } = render(Avatar, {
+      props: { name: "Abdullah Ubaid", src: "img/profile/1.png", decorative: true },
+    });
+    expect(container.querySelector("img")).toHaveAttribute("alt", "");
+  });
+
   it("menampilkan inisial bila tanpa foto, dengan ukuran sesuai", () => {
     render(Avatar, { props: { name: "Abdullah Ubaid", size: "lg" } });
     const el = screen.getByRole("img", { name: "Abdullah Ubaid" });
