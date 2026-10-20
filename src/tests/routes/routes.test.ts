@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/svelte";
+import { createRawSnippet } from "svelte";
 import { beforeEach, describe, expect, it } from "vitest";
 import * as rootLayout from "../../routes/+layout";
 import ErrorPage from "../../routes/+error.svelte";
@@ -8,6 +9,7 @@ import LoginRoute from "../../routes/auth/login/+page.svelte";
 import RegisterRoute from "../../routes/auth/register/+page.svelte";
 import ContentRoute from "../../routes/courses/[courseId]/contents/[contentId]/+page.svelte";
 import DetailRoute from "../../routes/courses/[courseId]/+page.svelte";
+import NewLinkTreeRoute from "../../routes/link-trees/new/+page.svelte";
 import ProfileRoute from "../../routes/profile/+page.svelte";
 import UsersRoute from "../../routes/users/+page.svelte";
 import { content, detail, mockFetch, ok, resetStores, setPage, signIn, summary, user } from "../utils";
@@ -60,9 +62,18 @@ describe("rute", () => {
     expect(screen.getByRole("heading", { name: "Buat akun" })).toBeInTheDocument();
   });
 
+  it("/link-trees/new menampilkan halaman pembuatan Link Tree", () => {
+    render(NewLinkTreeRoute);
+    expect(screen.getByRole("heading", { name: "Buat Link Tree" })).toBeInTheDocument();
+    expect(document.title).toContain("Buat Link Tree");
+  });
+
   it("layout auth membungkus konten rute", () => {
-    render(AuthLayoutRoute);
-    expect(screen.getByRole("heading", { name: "Belajar lewat video, kapan saja." })).toBeInTheDocument();
+    const children = createRawSnippet(() => ({
+      render: () => "<h1>Konten rute auth</h1>",
+    }));
+    render(AuthLayoutRoute, { props: { children } });
+    expect(screen.getByRole("heading", { name: "Konten rute auth" })).toBeInTheDocument();
   });
 
   it("/users dan /profile", async () => {
