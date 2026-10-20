@@ -1,0 +1,9 @@
+.git
+node_modules
+.svelte-kit
+.netlify
+build
+coverage
+.env
+.env.*
+!.env.example

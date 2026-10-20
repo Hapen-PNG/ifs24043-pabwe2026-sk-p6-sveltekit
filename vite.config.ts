@@ -1,7 +1,6 @@
 import { sveltekit } from "@sveltejs/kit/vite";
-import bunAdapter from "@sveltejs/adapter-bun";
 import netlifyAdapter from "@sveltejs/adapter-netlify";
-import vercelAdapter from "@sveltejs/adapter-vercel";
+import nodeAdapter from "@sveltejs/adapter-node";
 import tailwindcss from "@tailwindcss/vite";
 import { svelteTesting } from "@testing-library/svelte/vite";
 import { defineConfig, loadEnv } from "vite";
@@ -11,23 +10,12 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const port = Number(process.env.APP_PORT || env.APP_PORT) || 3005;
 
-  // Vercel mengisi variabel VERCEL saat build, Jenkins tidak.
-  const isNetlify = Boolean(process.env.NETLIFY);
-  const isVercel = Boolean(process.env.VERCEL);
+  const isNetlify = process.env.NETLIFY !== undefined;
 
   return {
     plugins: [
       sveltekit({
-        adapter: isVercel
-          ? vercelAdapter()
-          : isNetlify
-            ? netlifyAdapter()
-            : bunAdapter({
-                envPrefix: "SVELTEKIT_",
-                serverOptions: {
-                  port: port,
-                },
-              }),
+        adapter: isNetlify ? netlifyAdapter() : nodeAdapter(),
         inlineStyleThreshold: 20000,
       }),
       tailwindcss(),

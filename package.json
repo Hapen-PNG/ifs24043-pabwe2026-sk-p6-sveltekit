@@ -7,16 +7,15 @@
     "prepare": "svelte-kit sync",
     "dev": "vite dev",
     "build": "svelte-kit sync && vite build",
-    "start": "bun ./build/index.js",
+    "start": "node build/index.js",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@sveltejs/adapter-bun": "^1.0.0",
     "@sveltejs/adapter-netlify": "^7.0.1",
-    "@sveltejs/adapter-vercel": "^7.0.1",
+    "@sveltejs/adapter-node": "^6.0.0",
     "@sveltejs/kit": "3.0.1",
     "@sveltejs/vite-plugin-svelte": "7.3.1",
     "@tailwindcss/vite": "4.3.3",
