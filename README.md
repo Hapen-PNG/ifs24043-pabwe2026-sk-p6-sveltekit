@@ -15,6 +15,6 @@ bun run test:coverage  # threshold 100%
 
 ## Catatan teknis
 
-- SvelteKit 3 tidak lagi memakai `svelte.config.js`; adapter (`@sveltejs/adapter-bun`) diatur di `vite.config.ts`.
+- Adapter dipilih di `vite.config.ts`: Netlify memakai `@sveltejs/adapter-netlify`, Vercel memakai `@sveltejs/adapter-vercel`, dan lingkungan lain memakai `@sveltejs/adapter-bun`.
 - `svelte-adapter-bun` (pihak ketiga) tidak kompatibel dengan Kit 3, maka dipakai adapter resmi.
 - Mutasi menyalakan bendera di `coursesStore`; halaman memuat ulang data saat bendera menyala.
